@@ -25,22 +25,22 @@ export function useGpsTracker(tripId: string | null) {
             })
           });
         } catch (err) {
-          console.error("❌ Failed to send GPS update:", err);
+          console.error("Failed to send GPS update:", err);
         }
       },
-      (err) => console.error("📍 GPS Watcher Error:", err),
+      (err) => console.error(" GPS Watcher Error:", err),
       { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
     );
 
     return () => {
-        console.log("🛑 Stopping GPS Watcher...");
+        console.log("Stopping GPS Watcher...");
         navigator.geolocation.clearWatch(watchId);
     };
   }, [isTracking, tripId]);
 
   const handleStartTrip = async () => {
     if (!tripId) {
-        console.warn("⚠️ No tripId provided");
+        console.warn("No tripId provided");
         return;
     }
 
@@ -51,7 +51,7 @@ export function useGpsTracker(tripId: string | null) {
         const initialLng = pos.coords.longitude;
 
         try {
-          console.log("📨 Sending Start Trip request with initial coordinates...");
+          console.log(" Sending Start Trip request with initial coordinates...");
           
           const response = await fetch(`${API_URL}/api/location/start`, {
             method: "POST",
@@ -69,16 +69,16 @@ export function useGpsTracker(tripId: string | null) {
             throw new Error(errorData.error || "Backend failed to start trip");
           }
 
-          console.log("✅ Trip started successfully!");
+          console.log("Trip started successfully!");
           setIsTracking(true); 
           
         } catch (err) {
-          console.error("🚨 Start Trip API Error:", err);
+          console.error(" Start Trip API Error:", err);
           alert(`Could not start trip. Error: ${err instanceof Error ? err.message : 'Unknown error'}`);
         }
       },
       (err) => {
-        console.error("📍 Initial GPS Error:", err);
+        console.error("Initial GPS Error:", err);
         alert("Please enable location permissions to start the trip.");
       },
       { enableHighAccuracy: true }
@@ -86,7 +86,7 @@ export function useGpsTracker(tripId: string | null) {
   };
 
   const stopTracking = () => {
-    console.log("🏁 Ending trip tracking...");
+    console.log("Ending trip tracking...");
     setIsTracking(false);
   };
 

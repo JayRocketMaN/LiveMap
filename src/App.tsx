@@ -53,7 +53,7 @@ export default function App() {
     socket.emit("join-trip", CURRENT_TRIP_ID);
 
     socket.on("location-update", (data: LocationUpdate) => {
-      console.log("📍 Room Update Received:", data);
+      console.log(" Room Update Received:", data);
       setMarkers((prev: Record<string, [number, number]>) => ({
         ...prev,
         [data.tripId]: [data.lat, data.lng]
@@ -85,7 +85,7 @@ export default function App() {
               cursor: "pointer", fontWeight: "bold"
             }}
           >
-            🚀 START TRIP
+             START TRIP
           </button>
         ) : (
           <button 
@@ -96,7 +96,7 @@ export default function App() {
               cursor: "pointer", fontWeight: "bold"
             }}
           >
-            🏁 END TRIP
+             END TRIP
           </button>
         )}
 
